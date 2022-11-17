@@ -12,8 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GrilleTest {
 
-    private static int MAX_LIGNES = 4;
-    private static int MAX_COLONNES = 4;
+    private static final int MAX_LIGNES = 4;
+    private static final int MAX_COLONNES = 4;
     private Grille grille;
 
     @BeforeEach
@@ -42,8 +42,6 @@ class GrilleTest {
 
     @Test
     void evoluer_grilleShouldEvolved() throws NegativeNumberException{
-        var grilleIsEvolved = false;
-
         grille.afficher();
         grille.evoluer();
         grille.afficher();
@@ -52,5 +50,14 @@ class GrilleTest {
 
         assertFalse(Arrays.deepEquals(previousGrille, actualGrille));
     }
+
+    @Test
+    void evoluer_withMaxLAndMaxCPersonalized() {
+        grille = new Grille(5, 5);
+        grille.afficher();
+
+        assertDoesNotThrow(() -> grille.evoluer());
+    }
+
 
 }

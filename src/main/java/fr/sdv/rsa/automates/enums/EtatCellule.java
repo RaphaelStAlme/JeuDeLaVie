@@ -5,13 +5,13 @@ public enum EtatCellule {
     inactive("□"),
     ;
 
-    private String icon ;
-
-    public String getIcon() {
-        return icon;
-    }
+    private final String icon;
 
     EtatCellule(String icon) {
         this.icon = icon;
+    }
+
+    public String getIcon() {
+        return icon;
     }
 }

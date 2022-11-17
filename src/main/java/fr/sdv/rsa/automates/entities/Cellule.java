@@ -3,8 +3,6 @@ package fr.sdv.rsa.automates.entities;
 import fr.sdv.rsa.automates.enums.EtatCellule;
 import fr.sdv.rsa.automates.exception.NegativeNumberException;
 
-import java.util.Random;
-
 public class Cellule implements Cloneable {
     private static final int NB_CELLULE_MAX = 3;
     private static final EtatCellule[]  etatDisponible = {EtatCellule.inactive,EtatCellule.active};
@@ -73,6 +71,11 @@ public class Cellule implements Cloneable {
                 '}';
     }
 
+    /**
+     * Cette méthode va permettre de cloner la cellule
+     * @return une nouvelle cellule
+     * @throws CloneNotSupportedException
+     */
     @Override
     public Cellule clone() {
         try {

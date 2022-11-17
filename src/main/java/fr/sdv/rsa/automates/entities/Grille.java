@@ -7,16 +7,17 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Grille {
-    private int numeroGrille;
-
-    private Cellule[][] previousGrille;
     private final Cellule[][] grille;
     private final int nbLignes;
     private final int nbColonnes;
+    private int numeroGrille;
+    private Cellule[][] previousGrille;
+
 
     /**
      * Ce constructeur créer une grille dont la taille dépend du paramètre nbLignes et nbColonnes.
      * Puis il va faire des itérations pour créer des cellules.
+     *
      * @param nbLignes
      * @param nbColonnes
      */
@@ -32,6 +33,14 @@ public class Grille {
         }
     }
 
+    public Cellule[][] getGrille() {
+        return grille;
+    }
+
+    public Cellule[][] getPreviousGrille() {
+        return previousGrille;
+    }
+
     /**
      * S'occupe de l'affichage de la grille avec le numéro de la grille.
      */
@@ -44,11 +53,13 @@ public class Grille {
             }
             System.out.println();
         }
-        System.out.println();
+
+
     }
 
     /**
      * Cette méthode va faire évoluer la grille en fonction du nombre de cellule voisines.
+     *
      * @throws NegativeNumberException
      */
     public void evoluer() throws NegativeNumberException {
@@ -56,17 +67,20 @@ public class Grille {
 
         for (int i = 0; i < nbColonnes; i++) {
             for (int j = 0; j < nbLignes; j++) {
-                grille[j][i].evoluer(nbVoisinesVivantes(i, j));
+                grille[j][i].evoluer(nbVoisinesVivantes(j, i));
             }
         }
         numeroGrille++;
+
+        isGameFinished();
     }
 
     /**
      * Cette méthode va permettre de copier la grille actuelle dans la grille précédente.
+     *
      * @return la grille précédente
      */
-    private Cellule[][] copyActualGrilleInPreviousGrille()  {
+    private Cellule[][] copyActualGrilleInPreviousGrille() {
         Cellule[][] copyGrille = new Cellule[grille.length][];
 
         for (int i = 0; i < grille.length; i++) {
@@ -81,6 +95,7 @@ public class Grille {
     /**
      * Cette méthode va déceler les nombres de cellules voisines pour une cellule spécifique dont les coordonnées sont
      * donné par les paramètres ligneCellule et colonneCellule
+     *
      * @param ligneCellule
      * @param colonneCellule
      * @return Le nombre de cellules voisines
@@ -100,13 +115,15 @@ public class Grille {
         return nbVoisinesVivantes;
     }
 
-    public Cellule[][] getGrille() {
-        return grille;
+    /**
+     * Cette méthode va permettre de savoir si la partie est finie ou non.
+     *
+     * @throws NegativeNumberException
+     */
+    private void isGameFinished(){
+        if (Arrays.deepEquals(grille, previousGrille)) {
+            System.out.println("La partie est terminée");
+            System.exit(0);
+        }
     }
-
-    public Cellule[][] getPreviousGrille() {
-        return previousGrille;
-    }
-
-
 }
